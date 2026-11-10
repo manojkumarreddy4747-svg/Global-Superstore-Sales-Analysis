@@ -1,0 +1,35 @@
+--- Find region-wise sales and profit
+
+SELECT
+    Region,
+    SUM(Sales) AS Total_Sales,
+    SUM(Profit) AS Total_Profit
+FROM dbo.Sales
+GROUP BY Region
+ORDER BY Total_Sales DESC;
+
+
+--- Find top 10 countries by sales
+
+SELECT TOP 10
+    Country,
+    SUM(Sales) AS Total_Sales,
+    SUM(Profit) AS Total_Profit
+FROM dbo.Sales
+GROUP BY Country
+ORDER BY Total_Sales DESC;
+
+
+--- Calculate average shipping duration by shipping mode
+
+SELECT
+    Ship_Mode,
+    AVG(
+        CAST(
+            DATEDIFF(DAY, Order_Date, Ship_Date)
+            AS DECIMAL(10,2)
+        )
+    ) AS Average_Shipping_Days
+FROM dbo.Sales
+GROUP BY Ship_Mode
+ORDER BY Average_Shipping_Days;
